@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ラビ2ストーン</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="character-container">
+            <img src="assets/images/character01.png" alt="キャラクター" id="character">
+            <svg class="speech-bubble" width="200" height="100" viewBox="0 0 200 100">
+                <path d="M10,50 Q10,10 50,10 L150,10 Q190,10 190,50 Q190,90 150,90 L70,90 L50,110 L45,90 Q10,90 10,50" fill="white" stroke="#ff4081" stroke-width="2"></path>
+                <text id="speech-text" x="100" y="55" text-anchor="middle" font-family="213chan" font-size="16" fill="#9c27b0">やったね！</text>
+            </svg>
+        </div>
+        <div class="game-content">
+            <h1>ラビ2ストーン</h1>
+            <div class="score-container">
+                <p>スコア: <span id="score">0</span></p>
+                <p>残り時間: <span id="timer">60</span>秒</p>
+            </div>
+            <div class="game-board" id="board"></div>
+            <button id="start-button">ゲームスタート</button>
+            <div id="sound-status">効果音: <span id="sound-indicator">確認中...</span></div>
+        </div>
+    </div>
+    
+    <!-- パーティクルコンテナ -->
+    <div id="particles-container"></div>
+    
+    <!-- 効果音 -->
+    <audio id="select-sound" src="sounds/se02.mp3" preload="auto"></audio>
+    <audio id="match-sound" src="sounds/se01.mp3" preload="auto"></audio>
+    <audio id="gameover-sound" src="sounds/se01.mp3" preload="auto"></audio>
+    <!-- BGM -->
+    <audio id="bgm" src="sounds/bgm01.mp3" loop preload="auto"></audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>

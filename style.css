@@ -1,0 +1,320 @@
+/* フォントの定義 */
+@font-face {
+    font-family: '213chan';
+    src: url('assets/fonts/213chan_nonbit-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ゲーム全体のスタイル */
+body {
+    font-family: '213chan', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('assets/images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff6b9c; /* フォントの色をピンクに変更 */
+}
+
+.game-container {
+    display: flex;
+    width: 90vw;
+    height: calc(90vw * 9/16); /* 16:9のアスペクト比 */
+    max-height: 90vh;
+    max-width: calc(90vh * 16/9); /* 最大高さに基づいた最大幅 */
+    background-color: rgba(255, 255, 255, 0.15); /* 背景の透明度を15%に */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.character-container {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(232, 232, 232, 0.15); /* 不透明度15%に調整 */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.character-container img {
+    max-width: 100%;
+    max-height: 90%;
+    object-fit: contain;
+    animation: floating 3s ease-in-out infinite; /* ふわふわアニメーション */
+}
+
+/* キャラクター */
+.character {
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%) scale(1.5); /* 1.5倍に拡大 */
+    animation: floating 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+/* キャラクターの吹き出し */
+.speech-bubble {
+    position: absolute;
+    left: 220px;
+    top: 100px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 2;
+}
+
+.speech-bubble.visible {
+    opacity: 1;
+}
+
+/* キャラクターのふわふわアニメーション */
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.game-content {
+    width: 75%;
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #ff4081; /* タイトルの色を明るいピンクに */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* スコア表示 */
+.score-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #9c27b0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.score-container p {
+    margin: 5px 0;
+}
+
+#score, #timer {
+    font-size: 32px;
+    color: #ff4081;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ゲームボードのスタイル */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 2px;
+    background-color: rgba(221, 221, 221, 0.15); /* 不透明度15%に調整 */
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    flex-grow: 1;
+    aspect-ratio: 1/1; /* 正方形のボードに */
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto 15px;
+}
+
+/* タイルのスタイル */
+.tile {
+    position: relative;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s ease-out;
+    box-sizing: border-box;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    margin: 2px;
+}
+
+.tile.selected {
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    border: 2px solid white;
+}
+
+.tile.red {
+    background-color: #ff5252;
+}
+
+.tile.blue {
+    background-color: #4285f4;
+}
+
+.tile.green {
+    background-color: #0f9d58;
+}
+
+.tile.yellow {
+    background-color: #ffeb3b;
+}
+
+.tile.purple {
+    background-color: #9c27b0;
+}
+
+.tile.orange {
+    background-color: #ff9800;
+}
+
+/* スペシャルタイル */
+.tile.special {
+    background: linear-gradient(45deg, #ff5252, #4285f4, #0f9d58, #ffeb3b, #9c27b0, #ff9800);
+    background-size: 600% 600%;
+    animation: gradient 3s ease infinite;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.tile.special::before {
+    content: '★';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* マッチしたタイルのエフェクト */
+.tile.matched {
+    opacity: 0.2;
+    animation: fadeOutRotate 0.5s;
+}
+
+/* 回転しながら消えるアニメーション */
+@keyframes fadeOutRotate {
+    0% { 
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+    }
+    100% { 
+        opacity: 0;
+        transform: rotate(720deg) scale(0);
+    }
+}
+
+/* 落下アニメーション */
+.tile.fall {
+    animation: fallDown 0.5s;
+}
+
+/* スタートボタンのスタイル */
+#start-button {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background-color: #ff4081; /* ボタンの色を明るいピンクに */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: '213chan', sans-serif;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#start-button:hover {
+    background-color: #f50057;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+#start-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* サウンドステータス */
+#sound-status {
+    font-size: 1rem;
+    color: #7e57c2; /* 紫色に変更 */
+    margin-bottom: 10px;
+}
+
+/* エラーログ */
+#error-log {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ff5252;
+    border-radius: 4px;
+    max-height: 100px;
+    overflow-y: auto;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: none;
+}
+
+/* パーティクルのスタイル */
+.particle {
+    display: none;
+}
+
+.particle-ring {
+    display: none;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .game-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .character-container {
+        width: 100%;
+        height: 30%;
+    }
+    
+    .game-content {
+        width: 100%;
+        height: 70%;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .score-container p {
+        font-size: 1.2rem;
+    }
+    
+    #start-button {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+    }
+}
